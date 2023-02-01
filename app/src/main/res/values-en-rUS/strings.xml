@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Register Screen -->
+    <string name="app_name">Deary</string>
+    <string name="register">Register</string>
+    <string name="text_register">Please enter these different information, so that your lists are saved.</string>
+    <string name="username">Username</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="check_password">Password verification</string>
+    <string name="register_button">Register</string>
+
+    <!-- Connection Screen -->
+    <string name="welcome">Welcome!</string>
+    <string name="text_welcome">Please login or create a new account to use the app.</string>
+    <string name="create_new_account">Create a new account</string>
+    <string name="login">Login</string>
+    <string name="forgotten_password">Password forgotten</string>
+
+    <!-- Forgotten Password Screen -->
+    <string name="text_forgotten_password">Please enter your email and your new password to reset it</string>
+    <string name="forgotten_password_button">Reset my password</string>
+    <string name="search_game">Search a game…</string>
+
+    <!-- Bottom Navigation -->
+    <string name="wishlist">Wishlist</string>
+    <string name="favorites">Favorites</string>
+    <string name="home">Home</string>
+
+    <!-- Home Screen -->
+    <string name="know_more">To know more</string>
+    <string name="best_sells">Best sells</string>
+
+    <!-- Wishlist Screen -->
+    <string name="my_wishlist">My Wishlist</string>
+
+    <string name="search">Search</string>
+    <string name="close">Close</string>
+    <string name="nb_result">Number of results: </string>
+
+    <string name="no_likes_yet">You haven\'t liked any content yet. Click on the heart to add more.</string>
+    <string name="no_wishlist_yet">You haven\'t added any content to your wishlist yet. Click on the star to add more.</string>
+    <string name="failed_to_connect_to_server">Server connection error</string>
+    <string name="details">Details of the game</string>
+    <string name="notice">Reviews</string>
+    <string name="description">Description</string>
+    <string name="no_reviews">No reviews</string>
+</resources>

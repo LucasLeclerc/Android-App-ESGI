@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:background="@drawable/box_shadow"
+        >
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:text="@string/home"
+            android:textColor="@color/white"
+            android:textSize="22sp"
+            android:fontFamily="@font/google_sans_bold"
+            android:layout_marginTop="20dp"
+            android:layout_marginStart="10dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            />
+
+    </LinearLayout>
+
+    <include layout="@layout/search_bar" />
+
+    <ImageView
+        android:id="@+id/best_sells_pic"
+        android:layout_width="match_parent"
+        android:layout_height="170dp"
+        android:layout_marginTop="125dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@color/bg_color_global"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/know_more_best_sell"
+        android:layout_width="162dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="240dp"
+        android:backgroundTint="@color/buttons"
+        android:fontFamily="@font/proxima_nova_font"
+        android:text="@string/know_more"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="15sp"
+        android:theme="@style/Theme.MaterialComponents.NoActionBar"
+        app:cornerRadius="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:text="@string/best_sells"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:layout_marginStart="13dp"
+        android:fontFamily="@font/proxima_nova_font"
+        android:layout_marginTop="320dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/linear_game"
+        android:layout_height="match_parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="360dp"
+        android:backgroundTint="@android:color/transparent"
+        android:layout_width="match_parent"
+        android:layout_marginBottom="60dp"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

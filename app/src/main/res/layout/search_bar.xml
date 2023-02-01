@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:backgroundTint="@android:color/transparent">
+        <LinearLayout android:layout_width="352dp"
+            android:layout_weight="1"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="75dp"
+            android:gravity="center"
+            android:layout_height="45dp">
+
+            <EditText
+                android:id="@+id/search_bar"
+                android:layout_width="352dp"
+                android:layout_height="35dp"
+                android:layout_margin="5dp"
+                android:paddingStart="15dp"
+                android:background="@color/text_field"
+                android:hint="@string/search_game"
+                android:gravity="start"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white"
+                android:paddingTop="5dp"
+                android:singleLine="true"
+                android:imeOptions="actionSearch"
+            />
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/search"
+            android:layout_marginStart="300dp"
+            android:layout_marginTop="87dp"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@android:color/transparent"
+            app:tint="@color/buttons"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

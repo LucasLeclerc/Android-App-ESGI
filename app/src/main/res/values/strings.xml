@@ -1,0 +1,46 @@
+<resources>
+    <!-- Register Screen -->
+    <string name="app_name">Deary</string>
+    <string name="register">Inscription</string>
+    <string name="text_register">Veuillez saisir ces différentes informations, afin que vos listes soient sauvegardées.</string>
+    <string name="username">Nom d\'utilisateur</string>
+    <string name="email">E-mail</string>
+    <string name="password">Mot de passe</string>
+    <string name="check_password">Vérification du mot de passe</string>
+    <string name="register_button">S\'inscrire</string>
+
+    <!-- Connection Screen -->
+    <string name="welcome">Bienvenue !</string>
+    <string name="text_welcome">Veuillez vous connecter ou créer un nouveau compte pour utiliser l’application.</string>
+    <string name="create_new_account">Créer un nouveau compte</string>
+    <string name="login">Se connecter</string>
+    <string name="forgotten_password">Mot de passe oublié</string>
+
+    <!-- Forgotten Password Screen -->
+    <string name="text_forgotten_password">Veuillez saisir votre email ainsi que votre nouveau mot de passe afin de le réinitialiser</string>
+    <string name="forgotten_password_button">Réinitialiser mon mot de passe</string>
+    <string name="search_game">Rechercher un jeu…</string>
+
+    <!-- Bottom Navigation -->
+    <string name="wishlist">Liste de souhaits</string>
+    <string name="favorites">Favoris</string>
+
+    <!-- Home Screen -->
+    <string name="know_more">En savoir plus</string>
+    <string name="home">Accueil</string>
+    <string name="best_sells">Les meilleures ventes</string>
+
+    <!-- Wishlist Screen -->
+    <string name="my_wishlist">Ma liste de souhaits</string>
+
+    <string name="search">Recherche</string>
+    <string name="close">Fermer</string>
+    <string name="nb_result">Nombre de résultats : </string>
+    <string name="no_likes_yet">Vous n\'avez pas encore liké de contenu. Cliquez sur le coeur pour en rajouter.</string>
+    <string name="no_wishlist_yet">Vous n\'avez pas encore ajouté de contenu à votre liste de souhait. Cliquez sur l\'étoile pour en rajouter.</string>
+    <string name="failed_to_connect_to_server">Erreur de connexion au serveur</string>
+    <string name="details">Détails du jeu</string>
+    <string name="notice">Avis</string>
+    <string name="description">Description</string>
+    <string name="no_reviews">Aucune évaluation</string>
+</resources>
