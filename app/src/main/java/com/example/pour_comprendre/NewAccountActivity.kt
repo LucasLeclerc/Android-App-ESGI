@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.pour_comprendre.tools.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,6 +20,7 @@ import org.json.JSONObject
 
 class NewAccountActivity : AppCompatActivity() {
     private val url = "http://141.94.245.122:3000/users/register"
+    private val tools = Tools()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +36,10 @@ class NewAccountActivity : AppCompatActivity() {
         val username = findViewById<TextView>(R.id.username)
 
         if(email.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty() && pwd_check.text.toString().isNotEmpty() && username.text.toString().isNotEmpty()) {
+            if(!tools.isValidEmail(email.text.toString())) {
+                Toast.makeText(applicationContext, R.string.email_not_valid, Toast.LENGTH_LONG).show()
+            }
+
             if (pwd.text.toString() != pwd_check.text.toString()) {
                 pwd_failed_icon.visibility = View.VISIBLE
             } else {
@@ -56,11 +62,6 @@ class NewAccountActivity : AppCompatActivity() {
             val stringRequest: StringRequest = object : StringRequest( Method.POST, url,
                 Response.Listener { response ->
                     Toast.makeText(applicationContext, response, Toast.LENGTH_LONG).show()
-                    try {
-                        val jsonObject = JSONObject(response)
-                    } catch (e: JSONException) {
-                        e.printStackTrace()
-                    }
                 },
                 Response.ErrorListener { error ->
                     //Log.d("error", error.message.toString())

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Register Screen -->
     <string name="app_name">Deary</string>
+    <string name="failed_to_connect_to_server">Server connection error</string>
+
+    <!-- Register Screen -->
     <string name="register">Register</string>
     <string name="text_register">Please enter these different information, so that your lists are saved.</string>
     <string name="username">Username</string>
@@ -16,11 +18,12 @@
     <string name="create_new_account">Create a new account</string>
     <string name="login">Login</string>
     <string name="forgotten_password">Password forgotten</string>
+    <string name="email_not_valid">Your email is not valid</string>
+    <string name="password_invalid">Your password is not valid</string>
 
     <!-- Forgotten Password Screen -->
     <string name="text_forgotten_password">Please enter your email and your new password to reset it</string>
     <string name="forgotten_password_button">Reset my password</string>
-    <string name="search_game">Search a game…</string>
 
     <!-- Bottom Navigation -->
     <string name="wishlist">Wishlist</string>
@@ -30,17 +33,21 @@
     <!-- Home Screen -->
     <string name="know_more">To know more</string>
     <string name="best_sells">Best sells</string>
+    <string name="search_game">Search a game…</string>
 
     <!-- Wishlist Screen -->
     <string name="my_wishlist">My Wishlist</string>
+    <string name="no_wishlist_yet">You haven\'t added any content to your wishlist yet. Click on the star to add more.</string>
 
+    <!-- Favorites Screen -->
+    <string name="no_likes_yet">You haven\'t liked any content yet. Click on the heart to add more.</string>
+
+    <!-- Search Screen -->
     <string name="search">Search</string>
     <string name="close">Close</string>
     <string name="nb_result">Number of results: </string>
 
-    <string name="no_likes_yet">You haven\'t liked any content yet. Click on the heart to add more.</string>
-    <string name="no_wishlist_yet">You haven\'t added any content to your wishlist yet. Click on the star to add more.</string>
-    <string name="failed_to_connect_to_server">Server connection error</string>
+    <!-- To Know More Screen -->
     <string name="details">Details of the game</string>
     <string name="notice">Reviews</string>
     <string name="description">Description</string>

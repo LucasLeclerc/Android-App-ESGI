@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.android.volley.Response
 import com.android.volley.toolbox.StringRequest
 import com.android.volley.toolbox.Volley
+import com.example.pour_comprendre.tools.Tools
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,6 +20,7 @@ import org.json.JSONObject
 
 class ForgottenPasswordActivity : AppCompatActivity()  {
     private val url = "http://141.94.245.122:3000/users/reset_password"
+    private val tools = Tools()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +32,16 @@ class ForgottenPasswordActivity : AppCompatActivity()  {
         val pwd = findViewById<TextView>(R.id.password)
         val email = findViewById<TextView>(R.id.email)
 
-        if(email.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty()) {
-            apiCallRegister()
-            val intent = Intent(this, ConnectionActivity::class.java)
-            intent.putExtra("mail_user", email.text.toString())
-            startActivity(intent)
-            finish()
+        if(!tools.isValidEmail(email.text.toString())) {
+            Toast.makeText(applicationContext, R.string.email_not_valid, Toast.LENGTH_LONG).show()
+        } else {
+            if(email.text.toString().isNotEmpty() && pwd.text.toString().isNotEmpty()) {
+                apiCallRegister()
+                val intent = Intent(this, ConnectionActivity::class.java)
+                intent.putExtra("mail_user", email.text.toString())
+                startActivity(intent)
+                finish()
+            }
         }
     }
 

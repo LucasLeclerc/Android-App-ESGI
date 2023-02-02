@@ -2,6 +2,7 @@ package com.example.pour_comprendre
 
 import android.content.Intent
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.os.Build
 import android.os.Bundle
 import android.text.Html
@@ -27,10 +28,8 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.snackbar.BaseTransientBottomBar
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
+import org.json.JSONArray
 import org.json.JSONObject
 import java.util.*
 
@@ -39,6 +38,7 @@ class DetailsActivity : AppCompatActivity() {
     private lateinit var rvNotice: RecyclerView
     private lateinit var btnDescription: MaterialButton
     private lateinit var btnReviews: MaterialButton
+    private var username: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -171,8 +171,14 @@ class DetailsActivity : AppCompatActivity() {
     private fun apiCallGetDatasOfGame() {
         ioScope.launch {
             val requestQueue = Volley.newRequestQueue(this@DetailsActivity)
+            var language = ""
+            language = if(Locale.getDefault().displayLanguage.lowercase() == "français") {
+                "french"
+            } else {
+                Locale.getDefault().displayLanguage.lowercase()
+            }
             val stringRequest = StringRequest(
-                Request.Method.GET, "https://store.steampowered.com/api/appdetails?lan=${Locale.getDefault().language}&appids=${id_game}",
+                Request.Method.GET, "https://store.steampowered.com/api/appdetails?l=${language}&appids=${id_game}",
                 { response -> // Do something with response string
 
                     val title_game = findViewById<TextView>(R.id.title_game)
@@ -198,7 +204,6 @@ class DetailsActivity : AppCompatActivity() {
                     Picasso.get().load(games_array2.get("background").toString()).into(background)
                     title_game.text = games_array2.get("name").toString()
                     Picasso.get().load(games_array2.get("header_image").toString()).resize(240, 300).into(picture_game_jacket)
-
 
                     requestQueue.stop()
                 }
@@ -237,10 +242,8 @@ class DetailsActivity : AppCompatActivity() {
                     if(reviewsArray.length() > 0) {
                         for (i in 0 until reviewsArray.length()) {
                             val reviewFor = reviewsArray.getJSONObject(i)
-                            System.out.println(reviewFor.getJSONObject("author"))
-                            val author_id = reviewFor.getJSONObject("author").getString("steamid")
+                            val author_id = reviewFor.getJSONObject("author").getString("steamid").toString()
                             val review = reviewFor.getString("review").toString()
-
                             allReviews += Review(author_id, review)
                         }
                         val adapter = ReviewAdapter(allReviews)
@@ -271,16 +274,61 @@ class DetailsActivity : AppCompatActivity() {
         }
     }
 
+    private fun apiCallAuthorOfReview(id_user: Number) {
+        ioScope.launch {
+            val requestQueue = Volley.newRequestQueue(this@DetailsActivity)
+            val stringRequest = StringRequest(
+                Request.Method.GET,
+                "https://steamcommunity.com/actions/ajaxresolveusers?steamids=${id_user}",
+                { response ->
+                    val user = JSONArray(response)
+                    username = user.getJSONObject(0).getString("persona_name").toString()
+                    Log.d("username pseudo", username)
+                    requestQueue.stop()
+                }
+            ) { error ->
+                if (error.message?.contains("Failed to connect") == true) {
+                    val snackbar = Snackbar.make(
+                        findViewById(R.id.details),
+                        R.string.failed_to_connect_to_server,
+                        Snackbar.LENGTH_LONG
+                    )
+                    snackbar.setTextColor(resources.getColor(R.color.white))
+                    snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                    val view = snackbar.view
+                    val params = view.layoutParams as FrameLayout.LayoutParams
+                    params.gravity = Gravity.TOP
+                    snackbar.view.layoutParams = params
+                    snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+                    snackbar.show()
+                }
+
+                requestQueue.stop()
+            }
+        }
+    }
+
     private fun apiCallAddGameInFavorite() {
         ioScope.launch {
             val requestQueue = Volley.newRequestQueue(applicationContext)
             val stringRequest = object : StringRequest(
                 Method.POST, "http://141.94.245.122:3000/games/add_in_favorite",
-                { response -> // Do something with response string
-                    //System.out.println(response)
+                { response ->
                     requestQueue.stop()
                 },
-                { error -> // Do something when get error
+                { error ->
+                    if(error.message?.contains("Failed to connect") == true) {
+                        val snackbar = Snackbar.make(findViewById(R.id.details), R.string.failed_to_connect_to_server, Snackbar.LENGTH_LONG)
+                        snackbar.setTextColor(resources.getColor(R.color.white))
+                        snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                        val view = snackbar.view
+                        val params = view.layoutParams as FrameLayout.LayoutParams
+                        params.gravity = Gravity.TOP
+                        snackbar.view.layoutParams = params
+                        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+                        snackbar.show()
+                    }
+
                     requestQueue.stop()
                 }) {
                 override fun getBody(): ByteArray {
@@ -303,12 +351,24 @@ class DetailsActivity : AppCompatActivity() {
             val requestQueue = Volley.newRequestQueue(applicationContext)
             val stringRequest = object : StringRequest(
                 Method.POST, "http://141.94.245.122:3000/games/remove_from_favorite",
-                { response -> // Do something with response string
+                { response ->
                     System.out.println(response)
                     apiCallGameIsInFavorite()
                     requestQueue.stop()
                 },
-                { error -> // Do something when get error
+                { error ->
+                    if(error.message?.contains("Failed to connect") == true) {
+                        val snackbar = Snackbar.make(findViewById(R.id.details), R.string.failed_to_connect_to_server, Snackbar.LENGTH_LONG)
+                        snackbar.setTextColor(resources.getColor(R.color.white))
+                        snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                        val view = snackbar.view
+                        val params = view.layoutParams as FrameLayout.LayoutParams
+                        params.gravity = Gravity.TOP
+                        snackbar.view.layoutParams = params
+                        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+                        snackbar.show()
+                    }
+
                     requestQueue.stop()
                 }) {
                 override fun getBody(): ByteArray {
@@ -332,11 +392,22 @@ class DetailsActivity : AppCompatActivity() {
             val requestQueue = Volley.newRequestQueue(applicationContext)
             val stringRequest = object : StringRequest(
                 Method.POST, "http://141.94.245.122:3000/games/add_in_wishlist",
-                { response -> // Do something with response string
-                    //System.out.println(response)
+                { response ->
                     requestQueue.stop()
                 },
-                { error -> // Do something when get error
+                { error ->
+                    if(error.message?.contains("Failed to connect") == true) {
+                        val snackbar = Snackbar.make(findViewById(R.id.details), R.string.failed_to_connect_to_server, Snackbar.LENGTH_LONG)
+                        snackbar.setTextColor(resources.getColor(R.color.white))
+                        snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                        val view = snackbar.view
+                        val params = view.layoutParams as FrameLayout.LayoutParams
+                        params.gravity = Gravity.TOP
+                        snackbar.view.layoutParams = params
+                        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+                        snackbar.show()
+                    }
+
                     requestQueue.stop()
                 }) {
                 override fun getBody(): ByteArray {
@@ -359,12 +430,23 @@ class DetailsActivity : AppCompatActivity() {
             val requestQueue = Volley.newRequestQueue(applicationContext)
             val stringRequest = object : StringRequest(
                 Method.POST, "http://141.94.245.122:3000/games/remove_from_wishlist",
-                { response -> // Do something with response string
-                    System.out.println(response)
+                { response ->
                     apiCallGameIsInWishlist()
                     requestQueue.stop()
                 },
-                { error -> // Do something when get error
+                { error ->
+                    if(error.message?.contains("Failed to connect") == true) {
+                        val snackbar = Snackbar.make(findViewById(R.id.details), R.string.failed_to_connect_to_server, Snackbar.LENGTH_LONG)
+                        snackbar.setTextColor(resources.getColor(R.color.white))
+                        snackbar.setBackgroundTint(resources.getColor(R.color.red))
+                        val view = snackbar.view
+                        val params = view.layoutParams as FrameLayout.LayoutParams
+                        params.gravity = Gravity.TOP
+                        snackbar.view.layoutParams = params
+                        snackbar.animationMode = BaseTransientBottomBar.ANIMATION_MODE_FADE
+                        snackbar.show()
+                    }
+
                     requestQueue.stop()
                 }) {
                 override fun getBody(): ByteArray {
